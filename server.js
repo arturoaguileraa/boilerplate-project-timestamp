@@ -19,8 +19,18 @@ app.get("/", function (req, res) {
 });
 
 // your first API endpoint...
+
+app.get("/api", (req, res) => {
+    const ahora = new Date();
+    return res.json({
+        unix: ahora.getTime(),
+        utc: ahora.toUTCString(),
+    });
+});
+
 app.get("/api/:data", function (req, res) {
     const { data } = req.params;
+
     const dateObject = new Date(data).getTime()
         ? new Date(data)
         : new Date(parseInt(data));
