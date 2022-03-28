@@ -21,10 +21,11 @@ app.get("/", function (req, res) {
 // your first API endpoint...
 app.get("/api/:data", function (req, res) {
     const { data } = req.params;
-    const dateObject = new Date(data).valueOf()
+    const dateObject = new Date(data).getTime()
         ? new Date(data)
         : new Date(parseInt(data));
 
+    if (!dateObject.getTime()) return res.json({ error: "Invalid Date" });
     return res.json({
         unix: dateObject.getTime(),
         utc: dateObject.toUTCString(),
